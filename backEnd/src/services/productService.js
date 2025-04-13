@@ -21,11 +21,55 @@ async function getProductsByCategoryName(categoryName) {
     return result;
 }
 
+async function insertProduct(name, description, price, image_url, category_id) {
+    
+    const [result, fields] = await db.query("INSERT INTO products (id, name, description, price, image_url, category_id) VALUES (NULL, ?, ?, ?, ?, ?)", [name, description, price, image_url, category_id]);
+
+    return {
+        id: result.insertId,
+        name,
+        description,
+        price,
+        image_url,
+        category_id
+    }
+}
+
+async function updateProduct(id, name, description, price, image_url, category_id) {
+    const[result, fields] = await db.query("UPDATE products SET name = ?, description = ?, price = ?, image_url = ?, category_id = ? WHERE id = ?", [name, description, price, image_url, category_id, id]);    
+
+    if (result.affectedRows === 0) {
+        return null;
+    }
+
+    return {
+        id,
+        name,
+        description,
+        price,
+        image_url,
+        category_id
+    };
+}
+
+async function deleteProductById(id) {
+    const [result, fields] = await db.query("DELETE FROM products WHERE id = ?", [id]);
+
+    if (result.affectedRows === 0) {
+        return null;
+    }
+
+    return true;
+}
+
 
 
 module.exports = {
     getAllProducts,
     getProductById,
     getProductsByCategoryName,
+    insertProduct,
+    updateProduct,
+    deleteProductById
 
 }
