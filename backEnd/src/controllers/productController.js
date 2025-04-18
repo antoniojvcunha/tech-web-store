@@ -1,8 +1,14 @@
 const productService = require("../services/productService")
 
 async function index(req, res) {
-    const products = await productService.getAllProducts();
+    try {
+        const products = await productService.getAllProducts();
     res.json(products);
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+    
 }
 
 async function showProductById(req, res) {
