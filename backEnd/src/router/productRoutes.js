@@ -1,9 +1,10 @@
 const router = require("express").Router();
-
 const productController = require("../controllers/productController");
+const bestSellerController = require("../controllers/bestSellerController");
 
 
 router.get("/api/products/", productController.index);
+router.get("/api/products/best-sellers", bestSellerController.showBestSellers);
 router.get("/api/products/:id", productController.showProductById);
 router.get("/api/products/category/:categoryName", productController.showProductsByCategoryName);
 router.post("/api/products/", productController.storeProduct);
