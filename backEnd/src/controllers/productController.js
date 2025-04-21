@@ -13,6 +13,7 @@ async function index(req, res) {
 
 async function showProductById(req, res) {
     const id = +req.params.id;
+    
 
     try {
         const product = await productService.getProductById(id);
