@@ -1,8 +1,14 @@
+import { Route, Switch } from "wouter";
+import HomeView from "./views/HomeView";
+
 function App() {
   return (
     <>
-      <div className="bg-red-500 text-white">hello there</div>
-      <h1>olaaaaa</h1>
+      <div>
+        <Switch>
+          <Route path="/" component={HomeView}></Route>
+        </Switch>
+      </div>
     </>
   );
 }
