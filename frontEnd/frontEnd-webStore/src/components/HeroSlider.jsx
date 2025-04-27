@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import fetchNovelties from '../services/noveltieService';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -10,21 +11,20 @@ function HeroSlider() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchNovelties = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/api/novelties');
-        const data = await response.json();
-        console.log('Produtos carregados:', data);
-        setProducts(data);
-      } catch (error) {
-        console.error('Erro ao buscar produtos:', error);
-      } finally {
-        setLoading(false);
+      async function loadNovelties() {
+        try {
+          const novelties = await fetchNovelties();
+          setProducts(novelties);
+          setLoading(false);
+        } catch (error) {
+          console.error('Error fetching novelties:', error);
+          setLoading(false);
+        }
       }
-    };
 
-    fetchNovelties();
+      loadNovelties();
   }, []);
+        
 
   if (loading) {
     return <div className="text-center py-10">A carregar produtos...</div>;
@@ -45,7 +45,7 @@ function HeroSlider() {
     >
       {Array.isArray(products) && products.map((product) => (
         <SwiperSlide key={product.id}>
-          <div className="flex items-center justify-between bg-gray-100 h-full px-10 py-6 rounded-xl">
+          <div className="flex items-center justify-between bg-gray-100 h-full px-10 py-6 rounded-xl ">
             <div className="flex flex-col max-w-md">
               <span className="text-lg font-medium">{product.description}</span>
               <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-4">
