@@ -7,7 +7,7 @@ const categories = [
   { imageSrc: '/images/headphones.png', title: 'Enjoy With', categoryName: 'HEADPHONES', link: '/category/headphones', bgColor: 'bg-blue-500', colSpan: 'col-span-4' },
   { imageSrc: '/images/smartphones.png', title: 'Enjoy With', categoryName: 'SMARTPHONES', link: '/category/smartphones', bgColor: 'bg-green-500', colSpan: 'col-span-4' },
   { imageSrc: '/images/accessories.png', title: 'Enjoy With', categoryName: 'ACCESSORIES', link: '/category/accessories', bgColor: 'bg-red-500', colSpan: 'col-span-2' },
-  { imageSrc: '/images/smartwatch.png', title: 'Enjoy With', categoryName: 'SMARTWATCHES', link: '/category/smartwatches', bgColor: 'bg-pink-500', colSpan: 'col-span-2' },
+  { imageSrc: '/images/smartwatch.png', title: 'Enjoy With', categoryName: 'TV´S', link: '/category/smartwatches', bgColor: 'bg-pink-500', colSpan: 'col-span-2' },
 ];
 
 const CategoriesGrid = () => {
