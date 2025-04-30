@@ -4,7 +4,7 @@ function BestSellerCard({ product }) {
         {/* Imagem */}
         <div className="w-full h-56 overflow-hidden">
           <img
-            src={product.image_url}
+            src={product.image_url || null}
             alt={product.name}
             className="w-full h-full object-contain transition-all duration-700 group-hover:blur-sm group-hover:scale-105"
           />
