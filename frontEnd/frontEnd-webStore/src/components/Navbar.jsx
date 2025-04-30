@@ -8,7 +8,7 @@ function Navbar() {
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img
-            src="../public/images/logo.png"
+            src="../images/logo.png"
             className="h-8"
             alt="Flowbite Logo"
           />
@@ -37,22 +37,22 @@ function Navbar() {
         <div className="hidden w-full lg:flex lg:w-auto" id="navbar-default">
           <ul className="font-medium flex flex-col p-4 lg:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 lg:flex-row lg:space-x-8 rtl:space-x-reverse lg:mt-0 lg:border-0 lg:bg-white dark:bg-gray-800 lg:dark:bg-gray-800 dark:border-gray-700">
             <li>
-              <Link to="/" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-blue-700 lg:p-0 dark:text-white dark:hover:text-blue-500">
+              <Link to="/" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-red-600 lg:p-0 dark:text-white dark:hover:text-blue-500">
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/shop" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-blue-700 lg:p-0 dark:text-white dark:hover:text-blue-500">
+              <Link to="/shop" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-red-600 lg:p-0 dark:text-white dark:hover:text-blue-500">
                 Shop
               </Link>
             </li>
             <li>
-              <Link to="/aboutus" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-blue-700 lg:p-0 dark:text-white dark:hover:text-blue-500">
+              <Link to="/aboutus" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-red-600 lg:p-0 dark:text-white dark:hover:text-blue-500">
                 About Us
               </Link>
             </li>
             <li>
-              <Link to="/contactus" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-blue-700 lg:p-0 dark:text-white dark:hover:text-blue-500">
+              <Link to="/contactus" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-red-600 lg:p-0 dark:text-white dark:hover:text-blue-500">
                 Contact Us
               </Link>
             </li>
