@@ -3,11 +3,11 @@ import CategoryCard from './CategoryCard.jsx'; // (o componente que criámos ant
 
 const categories = [
   { image: '/images/gaming.png', title: 'Enjoy With', categoryName: 'GAMING', link: '/category/gaming', bgColor: 'bg-gray-900', colSpan: 'col-span-2' },
-  { imageSrc: '/images/laptops.png', title: 'Enjoy With', categoryName: 'LAPTOPS', link: '/category/laptops', bgColor: 'bg-yellow-500', colSpan: 'col-span-2' },
+  { imageSrc: '/images/laptops.png', title: 'Enjoy With', categoryName: 'LAPTOPS', link: '/category/laptops', bgColor: 'bg-orange-400', colSpan: 'col-span-2' },
   { imageSrc: '/images/headphones.png', title: 'Enjoy With', categoryName: 'HEADPHONES', link: '/category/headphones', bgColor: 'bg-blue-500', colSpan: 'col-span-4' },
   { imageSrc: '/images/smartphones.png', title: 'Enjoy With', categoryName: 'SMARTPHONES', link: '/category/smartphones', bgColor: 'bg-green-500', colSpan: 'col-span-4' },
-  { imageSrc: '/images/accessories.png', title: 'Enjoy With', categoryName: 'ACCESSORIES', link: '/category/accessories', bgColor: 'bg-red-500', colSpan: 'col-span-2' },
-  { imageSrc: '/images/smartwatch.png', title: 'Enjoy With', categoryName: 'TV´S', link: '/category/smartwatches', bgColor: 'bg-pink-500', colSpan: 'col-span-2' },
+  { imageSrc: '/images/accessories.png', title: 'Enjoy With', categoryName: 'ACCESSORIES', link: '/category/accessories', bgColor: 'bg-yellow-300', colSpan: 'col-span-2' },
+  { imageSrc: '../images/tv2-removebg-preview.png', title: 'Enjoy With', categoryName: 'TV´S', link: '/category/smartwatches', bgColor: 'bg-pink-500', colSpan: 'col-span-2' },
 ];
 
 const CategoriesGrid = () => {
@@ -18,7 +18,7 @@ const CategoriesGrid = () => {
         {categories.map((category, index) => (
           <CategoryCard 
             key={index}
-            imageSrc={category.image}
+            imageSrc={category.imageSrc}
             title={category.title}
             categoryName={category.categoryName}
             link={category.link}

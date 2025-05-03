@@ -2,20 +2,20 @@ import { Link } from "wouter";
 import VisaButton from "../buttons/paymentButtons/visaButton";
 import MasterCardButton from "../buttons/paymentButtons/MasterCardButton";
 import PaypalButton from "../buttons/paymentButtons/PaypalButton";
-import { Mail } from "lucide-react"
-import { Phone } from "lucide-react"
-import { MapPinned } from "lucide-react"
+import { Mail } from "lucide-react";
+import { Phone } from "lucide-react";
+import { MapPinned } from "lucide-react";
 
 function Footer() {
   return (
     <>
       <footer className="bg-white">
         <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-        <p class="w-full h-24 border-t border-solid border-gray-300 "></p>
+          <p className="w-full h-24 border-t border-solid border-gray-300 "></p>
 
-          <div className="md:flex md:justify-between ">
-            <div className="flex justify-center mb-10 md:mb-0">
-              <Link to="/" className="flex items-center mr-10">
+          <div className="md:flex md:justify-between md:items-center">
+            <div className="md:w1/3 flex justify-center md:justify-start mb-10 md:mb-0">
+              <Link to="/" className="flex items-center">
                 <img
                   src="../images/logo.png"
                   className="h-8 me-3"
@@ -23,72 +23,66 @@ function Footer() {
                 />
               </Link>
             </div>
-            <div className="flex flex-space-around mx-auto">
-            <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-              <div>
-                <h2 className="mb-6 text-base font-semibold text-black uppercase">
-                  Links
-                </h2>
-                <ul className="text-black text-sm font-medium">
-                  <li className="mb-4">
-                    <Link to="/shop" className="lg:hover:text-red-600">
-                      Shop
-                    </Link>
-                  </li>
-                  <li className="mb-4">
-                    <Link to="/contactus" className="lg:hover:text-red-600">
-                      Contact Us
-                    </Link>
-                  </li>
-                  <li className="mb-4">
-                    <Link to="/aboutus" className="lg:hover:text-red-600">
-                      About Us
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h2 className="mb-6 text-base font-semibold text-black uppercase">
-                  Contact us
-                </h2>
-                <ul className="text-black text-sm font-medium">
-                  <li className="flex gap-2 mb-4">
-                    <Mail color="black" size={16} /> 
-                    <span className="">xYqWt@example.com</span>
-                  </li>
-                  <li className="flex gap-2 mb-4">
-                    <Phone color="black" size={16} /> 
-                    <span className="">+351 234 567</span>
-                  </li>
-                  <li className="flex gap-2 mb-4">
-                    <MapPinned color="black" size={16} /> 
-                    <span className="">213 Lane, London, United Kingdom</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="flex flex-col items-center">
-                <h2 className="mb-6 text-base font-semibold text-black uppercase">
-                  Payments Services
-                </h2>
-                <div className="grid grid-cols-2 font-medium">
-                  <VisaButton />
-                  <MasterCardButton />
-                  <PaypalButton />
-                  
+            <div className="w-full md:w-2/3 md:ml-auto flex justify-center md:justify-end">
+              <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+                <div>
+                  <h2 className="mb-6 text-base font-semibold text-black uppercase">
+                    Links
+                  </h2>
+                  <ul className="text-black text-sm font-medium">
+                    <li className="mb-4">
+                      <Link to="/shop" className="lg:hover:text-red-600">
+                        Shop
+                      </Link>
+                    </li>
+                    <li className="mb-4">
+                      <Link to="/contactus" className="lg:hover:text-red-600">
+                        Contact Us
+                      </Link>
+                    </li>
+                    <li className="mb-4">
+                      <Link to="/aboutus" className="lg:hover:text-red-600">
+                        About Us
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h2 className="mb-6 text-base font-semibold text-black uppercase">
+                    Contact us
+                  </h2>
+                  <ul className="text-black text-sm font-medium">
+                    <li className="flex gap-2 mb-4">
+                      <Mail color="black" size={16} />
+                      <span className="">xYqWt@example.com</span>
+                    </li>
+                    <li className="flex gap-2 mb-4">
+                      <Phone color="black" size={16} />
+                      <span className="">+351 234 567</span>
+                    </li>
+                    <li className="flex gap-2 mb-4">
+                      <MapPinned color="black" size={16} />
+                      <span className="">213 Lane, London, United Kingdom</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex flex-col">
+                  <h2 className="mb-6 text-base font-semibold text-black uppercase">
+                    Payments Services
+                  </h2>
+                  <div className="grid grid-cols-2 font-medium">
+                    <VisaButton />
+                    <MasterCardButton />
+                    <PaypalButton />
+                  </div>
                 </div>
               </div>
             </div>
-            </div>
-            
           </div>
           <hr className="my-6 border-gray-300 sm:mx-auto lg:my-8" />
           <div className="sm:flex sm:items-center sm:justify-center">
-            
             <div className="flex mt-4 sm:justify-center sm:mt-0">
-              <Link
-                to="#"
-                className="text-blue-600"
-              >
+              <Link to="#" className="text-blue-600">
                 <svg
                   className="w-4 h-4"
                   aria-hidden="true"
