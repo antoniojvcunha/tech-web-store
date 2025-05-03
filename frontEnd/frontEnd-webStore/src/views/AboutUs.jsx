@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function AboutUs() {
   return (
@@ -28,11 +29,13 @@ function AboutUs() {
           <h1 className="text-4xl font-bold sm:text-5xl lg:text-6xl">
             Our Story
           </h1>
-          <p className="indent-4">
-            At TechLand, our mission is to make cutting-edge electronics
-            accessible to everyone through a seamless and reliable online
-            shopping experience. We are a passionate team driven by innovation,
-            quality, and customer satisfaction.
+          <div>
+            <p className="indent-4">
+              At TechLand, our mission is to make cutting-edge electronics
+              accessible to everyone through a seamless and reliable online
+              shopping experience. We are a passionate team driven by
+              innovation, quality, and customer satisfaction.
+            </p>
             <p>
               From the latest gadgets to essential tech gear, we carefully
               curate our catalog to meet the evolving needs of modern life.
@@ -44,7 +47,7 @@ function AboutUs() {
               gamer, a creator, or just tech-savvy, TechLand is your trusted
               partner for everything electronic.
             </p>
-          </p>
+          </div>
           <Link to="/contactus">
             <button
               type="button"
@@ -64,6 +67,8 @@ function AboutUs() {
           />
         </div>
       </div>
+      <Footer />
+
     </>
   );
 }

@@ -17,7 +17,7 @@ function BestSellerCard({ product }) {
         </div>
   
         {/* Botão Add to Cart */}
-        <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 bg-black text-white py-2 px-6 rounded-full transition-all duration-300">
+        <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100  text-white py-2 px-6 rounded-full transition-all duration-300 cursor-pointer hover:scale-105 bg-red-500 hover:bg-red-600">
           Add to Cart
         </button>
       </div>
