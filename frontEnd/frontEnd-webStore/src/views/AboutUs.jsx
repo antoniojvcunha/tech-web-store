@@ -51,7 +51,7 @@ function AboutUs() {
           <Link to="/contactus">
             <button
               type="button"
-              className="py-2.5 px-6 text-base bg-red-600 text-white rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-300 hover:bg-red-800 w-fit"
+              className="py-2.5 px-6 text-base bg-red-600 text-white rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-300 hover:bg-red-800 w-40"
             >
               Contact Us
             </button>
