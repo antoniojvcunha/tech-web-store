@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import BestSellerCard from "./BestSellerCard";
+import BestSellerCard from "./ProductCard";
 import fetchBestSellers from "../services/bestSellerService";
 
 function BestSellersGrid() {
@@ -31,7 +31,9 @@ function BestSellersGrid() {
 
   return (
     <div className="max-w-full mx-auto px-4 py-10">
-        <div className="flex items-center justify-center text-5xl">Best Sellers</div>
+      <div className="flex items-center justify-center text-5xl">
+        Best Sellers
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 py-10">
         {bestSellers.map((product) => (
           <BestSellerCard key={product.id} product={product} />
