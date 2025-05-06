@@ -46,6 +46,8 @@ async function updateQuantity(req, res) {
 }
 async function removeItem(req, res) {
     const itemId = +req.params.itemId;
+    console.log('Item ID:', itemId); // Verifique o valor do itemId aqui
+
 
     try {
         const removed = await cartItemService.removeItemFromCart(itemId);
