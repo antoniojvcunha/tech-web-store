@@ -8,7 +8,7 @@ function Navbar() {
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img
-            src="../images/logo.png"
+            src="/images/logo.png"
             className="h-8"
             alt="Flowbite Logo"
           />

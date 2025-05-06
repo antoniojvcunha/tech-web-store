@@ -6,6 +6,10 @@ async function addItemToCart(cartId, productId, quantity) {
         [cartId, productId]
     );
 
+    if (quantity <= 0) {
+        throw new Error("A quantidade deve ser maior que zero");
+    }
+
     if (result.length > 0) {
         // Atualiza a quantidade
         const newQuantity = result[0].quantity + quantity;
