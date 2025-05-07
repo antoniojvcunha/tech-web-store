@@ -27,16 +27,24 @@ async function createCart(userId) {
     }
   };
 
-async function getCartByUserId(userId) {
-    try{
-        const res = await fetch(`${BASE_URL}/cart/${userId}`);
-        if (!res.ok) throw new Error("Cart not found");
-        return res.json();
+  async function getCartByUserId(userId) {
+    try {
+      const res = await fetch(`${BASE_URL}/cart/${userId}`);
+      
+      if (!res.ok) {
+        if (res.status === 404) {
+          throw new Error("Cart not found");
+        }
+        throw new Error(`Failed to fetch cart: ${res.statusText}`);
+      }
+  
+      return res.json();
     } catch (error) {
-        console.error("Error fetching cart:", error);
-        throw error;
+      console.error("Error fetching cart:", error);
+      throw error;
     }
-}
+  }
+  
 
 async function addItemToCart(cartId, productId, quantity) {
     try {

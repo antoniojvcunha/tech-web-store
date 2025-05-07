@@ -1,7 +1,14 @@
 import { Link } from "wouter";
+import { useEffect } from "react";
+import { initDropdowns } from "flowbite";
+
 
 
 function Navbar() {
+  useEffect(() => {
+    initDropdowns(); // garante que o dropdown é inicializado
+  }, []);
+  
   return (
     <nav className="bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -61,6 +68,8 @@ function Navbar() {
 
         {/* Carrinho + Utilizador */}
         <div className="flex space-x-4 items-center">
+          <Link to="/login"><p>login</p></Link>
+          <Link to="/register"><p>register</p></Link>
           {/* Carrinho */}
           <Link to="/cart" className="relative inline-flex items-center text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500">
             {/* Ícone do carrinho */}
@@ -79,8 +88,9 @@ function Navbar() {
           {/* Utilizador dropdown */}
           <div className="relative">
             <button
-              id="user-menu-button"
-              data-dropdown-toggle="user-dropdown"
+              id="dropDownHoverButton"
+              data-dropdown-toggle="dropdownHover"
+              data-dropdown-trigger="hover"
               data-dropdown-placement="bottom"
               className="flex text-sm rounded-full focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-600"
               type="button"
@@ -93,14 +103,14 @@ function Navbar() {
 
             {/* Dropdown menu */}
             <div
-              id="user-dropdown"
+              id="dropdownHover"
               className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 absolute right-0"
             >
               <div className="px-4 py-3">
                 <span className="block text-sm text-gray-900 dark:text-white">Utilizador</span>
                 <span className="block text-sm text-gray-500 truncate dark:text-gray-400">user@email.com</span>
               </div>
-              <ul className="py-2" aria-labelledby="user-menu-button">
+              <ul className="py-2" aria-labelledby="dropdownHoverButton">
                 <li>
                   <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white">
                     Profile
