@@ -5,6 +5,7 @@ import shopProductService from "../services/shopProductService";
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import BestSellersGrid from "../components/BestSellersGrid.jsx";
+import { CartButton } from "../buttons/CartButton.jsx";
 
 function ProductDetailsView() {
   const { slug } = useParams();
@@ -52,9 +53,7 @@ function ProductDetailsView() {
           </p>
           <p className="text-gray-600">{product.description}</p>
 
-          <button className="mt-6 bg-red-600 text-white py-2 px-6 rounded-full hover:bg-red-700 transition-all">
-            Adicionar ao Carrinho
-          </button>
+          <CartButton productId={product.id} variant="regular" />
         </div>
       </div>
       <BestSellersGrid />

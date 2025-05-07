@@ -18,11 +18,17 @@ function CartProvider({ userId, children }) {
 
         if (userId) {
             const tempItems = JSON.parse(localStorage.getItem("tempCartItems")) || [];
-          cart = await cartService.getCartByUserId(userId);
-          if (!cart) {
-            const newCart = await cartService.createCart(userId);
-            cart = { id: newCart.insertId };
-          }
+            try {
+              cart = await cartService.getCartByUserId(userId);
+            } catch (error) {
+              if (error.message.includes("Cart not found")) {
+                const newCart = await cartService.createCart(userId);
+                cart = { id: newCart.insertId };
+              } else {
+                throw error;
+              }
+            }
+            
           setCartId(cart.id);
 
           for (const item of tempItems) {
@@ -71,14 +77,13 @@ function CartProvider({ userId, children }) {
         if (existingItem) {
           existingItem.quantity += quantity;
         } else {
-          localItems.push({ 
-            product_id: productId, 
-            quantity,
-            // Adicione mais detalhes do produto para exibição
-            name: product?.name || `Product ${productId}`,
-            price: product?.price || 0,
-            image_url: product?.image_url || null
-          });
+            localItems.push({ 
+                product_id: productId, 
+                quantity,
+                name: `Produto #${productId}`,
+                price: 0,
+                image_url: null
+              });
         }
   
         localStorage.setItem("tempCartItems", JSON.stringify(localItems));

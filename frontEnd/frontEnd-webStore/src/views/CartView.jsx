@@ -7,12 +7,15 @@ function CartView() {
 
   const handleQuantityChange = (item, newQuantity) => {
     const quantity = parseInt(newQuantity);
-    if (quantity < 1) return; // Previne valores menores que 1
-    updateQuantity(item.product_id || item.id, quantity);
-  };
+    if (quantity < 1) return;
 
-  const handleRemove = (item) => {
-    removeFromCart(item.product_id || item.id);
+    const itemId = item.id || item.product_id;
+    if (!itemId || isNaN(itemId)) {
+      console.error("Item ID inválido:", item);
+      return;
+    }
+
+    updateQuantity(itemId, quantity);
   };
 
   const totalPrice = cartItems.reduce(
@@ -53,7 +56,9 @@ function CartView() {
                       </p>
                     </div>
                     <div className="w-1/6 text-center">
-                      <p className="text-sm font-medium text-gray-600">${price.toFixed(2)}</p>
+                      <p className="text-sm font-medium text-gray-600">
+                        ${price.toFixed(2)}
+                      </p>
                     </div>
                     <div className="w-1/6">
                       <input
@@ -61,7 +66,7 @@ function CartView() {
                         min="1"
                         value={item.quantity}
                         onChange={(e) =>
-                          updateQuantity(item, e.target.value)
+                          handleQuantityChange(item, e.target.value)
                         }
                         className="w-16 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
