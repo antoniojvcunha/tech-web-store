@@ -1,10 +1,13 @@
+import { authHeaders } from "../auth/authHeaders";
 const BASE_URL = "http://localhost:3000/api";
 
 
 async function getCartItems(cartId) {
     try {
-        const response = await fetch(`${BASE_URL}/cart-items/${cartId}`);
-        if (!response.ok) throw new Error("Erro ao buscar itens do carrinho");
+        const response = await fetch(`${BASE_URL}/cart-items/${cartId}`, {
+        headers: authHeaders(),
+      });
+        if (!response.ok) throw new Error("Error fetching cart items");
         return await response.json();
       } catch (error) {
         console.error(error);
@@ -16,11 +19,14 @@ async function createCart(userId) {
     try {
       const res = await fetch(`${BASE_URL}/cart`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: authHeaders(),
         body: JSON.stringify({ user_id: userId }),
       });
       if (!res.ok) throw new Error("Error creating cart");
-      return res.json();
+
+      const data = await res.json();
+    console.log("Cart created with ID:", data.cartId);  // Depuração
+    return data;
     } catch (error) {
       console.error("Error creating cart:", error);
       throw error;
@@ -33,7 +39,7 @@ async function createCart(userId) {
       
       if (!res.ok) {
         if (res.status === 404) {
-          throw new Error("Cart not found");
+          return null;
         }
         throw new Error(`Failed to fetch cart: ${res.statusText}`);
       }
@@ -47,16 +53,20 @@ async function createCart(userId) {
   
 
 async function addItemToCart(cartId, productId, quantity) {
-    try {
+  try {
+   
         const res = await fetch(`${BASE_URL}/cart-items`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: authHeaders(),
           body: JSON.stringify({ 
             cart_id: cartId, 
             product_id: productId, 
             quantity}),
         });
         if (!res.ok) throw new Error("Error adding item to cart");
+        const data = await res.json();
+    console.log("Item added:", data);
+    return data;
       } catch (error) {
         console.error("Error adding item to cart:", error);
         throw error;
@@ -67,7 +77,7 @@ async function updateCartItemQuantity(itemId, quantity) {
     try {
         const res = await fetch(`${BASE_URL}/cart-items/${itemId}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: authHeaders(),
           body: JSON.stringify({ quantity }),
         });
         if (!res.ok) throw new Error("Error updating item quantity");
@@ -79,17 +89,32 @@ async function updateCartItemQuantity(itemId, quantity) {
  
 
 async function removeCartItem(itemId) {
-    console.log("Removing item with ID:", itemId);
-
     try {
         const res = await fetch(`${BASE_URL}/cart-items/${itemId}`, {
           method: "DELETE",
+          headers: authHeaders(),
         });
-        console.log("Response:", res);  // Verifique o que está retornando
-
         if (!res.ok) throw new Error("Error removing item from cart");
+        console.log("Response:", res); 
+        return await res.json();
       } catch (error) {
         console.error("Error removing item from cart:", error);
+        throw error;
+      }
+    }
+
+    async function clearCart(cartId) {
+      try {
+        const res = await fetch(`${BASE_URL}/cart/${cartId}/clear`, {
+          method: "DELETE",
+          headers: authHeaders(),
+        });
+        if (!res.ok) throw new Error("Error clearing cart");
+        const data = await res.json();
+        console.log("Cart cleared:", data);
+        return data;
+      } catch (error) {
+        console.error("Error clearing cart:", error);
         throw error;
       }
     }
@@ -102,4 +127,5 @@ export default {
   addItemToCart,
   updateCartItemQuantity,
   removeCartItem,
+  clearCart
 };

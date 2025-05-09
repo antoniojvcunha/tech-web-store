@@ -27,11 +27,11 @@ function HeroSlider() {
         
 
   if (loading) {
-    return <div className="text-center py-10">A carregar produtos...</div>;
+    return <div className="text-center py-10">Loading novelties...</div>;
   }
 
   if (products.length === 0) {
-    return <div className="text-center py-10">Nenhum produto disponível.</div>;
+    return <div className="text-center py-10">No novelties available</div>;
   }
 
   return (

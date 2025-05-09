@@ -1,27 +1,30 @@
 import { Link } from "wouter";
 import { useEffect } from "react";
 import { initDropdowns } from "flowbite";
+import { useAuth } from "../auth/useAuth";
+import LogoutButton from "../views/LogoutView";
+import { useCart } from "../context/cart/useCart";
 
 
 
 function Navbar() {
+  const { user } = useAuth();
+  const { cartItems } = useCart();
+  const totalCartItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
+
   useEffect(() => {
-    initDropdowns(); // garante que o dropdown é inicializado
+    initDropdowns();
   }, []);
-  
+
   return (
     <nav className="bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        {/* Logo */}
+
         <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <img
-            src="/images/logo.png"
-            className="h-8"
-            alt="Flowbite Logo"
-          />
+          <img src="/images/logo.png" className="h-8" alt="Logo" />
         </Link>
 
-        {/* Botão mobile */}
         <button
           data-collapse-toggle="navbar-default"
           type="button"
@@ -30,63 +33,35 @@ function Navbar() {
           aria-expanded="false"
         >
           <span className="sr-only">Open main menu</span>
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
 
-        {/* Menu de navegação */}
         <div className="hidden w-full lg:flex lg:w-auto" id="navbar-default">
-          <ul className="font-medium flex flex-col p-4 lg:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 lg:flex-row lg:space-x-8 rtl:space-x-reverse lg:mt-0 lg:border-0 lg:bg-white dark:bg-gray-800 lg:dark:bg-gray-800 dark:border-gray-700">
-            <li>
-              <Link to="/" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-red-600 lg:p-0 dark:text-white dark:hover:text-blue-500">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/shop" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-red-600 lg:p-0 dark:text-white dark:hover:text-blue-500">
-                Shop
-              </Link>
-            </li>
-            <li>
-              <Link to="/aboutus" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-red-600 lg:p-0 dark:text-white dark:hover:text-blue-500">
-                About Us
-              </Link>
-            </li>
-            <li>
-              <Link to="/contactus" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-red-600 lg:p-0 dark:text-white dark:hover:text-blue-500">
-                Contact Us
-              </Link>
-            </li>
+          <ul className="font-medium flex flex-col p-4 lg:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 lg:flex-row lg:space-x-8 lg:mt-0 lg:border-0 lg:bg-white dark:bg-gray-800 lg:dark:bg-gray-800 dark:border-gray-700">
+            <li><Link to="/" className="nav-link hover:text-red-600">Home</Link></li>
+            <li><Link to="/shop" className="nav-link hover:text-red-600">Shop</Link></li>
+            <li><Link to="/aboutus" className="nav-link hover:text-red-600">About Us</Link></li>
+            <li><Link to="/contactus" className="nav-link hover:text-red-600">Contact Us</Link></li>
           </ul>
         </div>
 
-        {/* Carrinho + Utilizador */}
         <div className="flex space-x-4 items-center">
-          <Link to="/login"><p>login</p></Link>
-          <Link to="/register"><p>register</p></Link>
-          {/* Carrinho */}
-          <Link to="/cart" className="relative inline-flex items-center text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500">
-            {/* Ícone do carrinho */}
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <Link to="/cart" className="relative inline-flex items-center text-gray-900 dark:text-white hover:text-red-600 dark:hover:text-blue-500">
+            <svg className="w-6 h-" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path d="M3 3h2l.4 2M7 13h10l4-8H5.4" strokeLinecap="round" strokeLinejoin="round" />
               <circle cx="9" cy="21" r="1" />
               <circle cx="20" cy="21" r="1" />
             </svg>
-            <span className="sr-only">Cart</span>
-            {/* Badge */}
-            <div className="absolute -top-2 -right-2 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-600 rounded-full">
-              3
-            </div>
+            {totalCartItems > 0 && (
+  <div className="absolute -top-2 -right-2 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-600 rounded-full">
+    {totalCartItems}
+  </div>
+)}
           </Link>
 
-          {/* Utilizador dropdown */}
-          <div className="relative">
+          <div className="relative ">
             <button
               id="dropDownHoverButton"
               data-dropdown-toggle="dropdownHover"
@@ -95,37 +70,45 @@ function Navbar() {
               className="flex text-sm rounded-full focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-600"
               type="button"
             >
-              {/* Ícone de utilizador */}
-              <svg className="w-6 h-6 text-gray-900 dark:text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <svg className="hover:text-red-600 w-6 h-6 text-gray-900 dark:text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5.121 17.804A8.966 8.966 0 0112 15c2.485 0 4.735.994 6.379 2.621M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </button>
 
-            {/* Dropdown menu */}
             <div
               id="dropdownHover"
               className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 absolute right-0"
             >
-              <div className="px-4 py-3">
-                <span className="block text-sm text-gray-900 dark:text-white">Utilizador</span>
-                <span className="block text-sm text-gray-500 truncate dark:text-gray-400">user@email.com</span>
+              <div className="px-4 py-3 ">
+                <span className="block text-sm text-gray-900 dark:text-white">
+                  {user ? user.name : "Username"}
+                </span>
+                <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
+                  {user ? user.email : "Sem sessão"}
+                </span>
               </div>
               <ul className="py-2" aria-labelledby="dropdownHoverButton">
-                <li>
-                  <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white">
-                    Profile
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/orders" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white">
-                    Orders
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white">
-                    Logout
-                  </Link>
-                </li>
+                {!user && (
+                  <>
+                    <li>
+                      <Link to="/login" className="dropdown-link">Login</Link>
+                    </li>
+                    <li>
+                      <Link to="/register" className="dropdown-link">Register</Link>
+                    </li>
+                  </>
+                )}
+
+                {user && (
+                  <>
+                    <li>
+                      <Link to="/orders" className="dropdown-link">Orders</Link>
+                    </li>
+                    <li>
+                      <LogoutButton className="dropdown-link cursor-pointer">Logout</LogoutButton>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
           </div>

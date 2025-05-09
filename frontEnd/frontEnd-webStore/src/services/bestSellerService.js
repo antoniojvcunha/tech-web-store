@@ -10,7 +10,6 @@ async function fetchBestSellers() {
       console.error('Error fetching best sellers:', error);
       throw error;
     }
-    
 }
 
 export default fetchBestSellers;

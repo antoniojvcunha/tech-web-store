@@ -1,11 +1,13 @@
+const BASE_URL = "http://localhost:3000/api";
+
 async function fetchAllProductsService() {
   try {
-    const response = await fetch("http://localhost:3000/api/products");
+    const response = await fetch(`${BASE_URL}/products`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    console.log("Dados recebidos:", data);
+    console.log("Data:", data);
     return data;
   } catch (error) {
     console.error("Error fetching all products:", error);
@@ -16,29 +18,29 @@ async function fetchAllProductsService() {
 async function fetchProductsByCategoryService(categoryName) {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/products/category/${categoryName}`
+      `${BASE_URL}/products/category/${categoryName}`
     );
     if (!response.ok) {
-      throw new Error("Erro ao buscar produtos por categoria");
+      throw new Error("Error fetching products by category");
     }
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Erro no fetchProductsByCategoryService:", error);
+    console.error("Error fetching products by category:", error);
     throw error;
   }
 }
 
 async function fetchProductsByIdService(id) {
   try {
-    const response = await fetch(`http://localhost:3000/api/products/${id}`);
+    const response = await fetch(`${BASE_URL}/api/products/${id}`);
     if (!response.ok) {
-      throw new Error("Erro ao buscar produto por ID");
+      throw new Error("Error no fetchProductByIdService");
     }
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Erro no fetchProductByIdService:", error);
+    console.error("Error on fetchProductByIdService:", error);
     throw error;
   }
 }

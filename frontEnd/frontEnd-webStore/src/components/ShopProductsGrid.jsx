@@ -46,7 +46,6 @@ function ShopProductsGrid({
     fetchProducts();
   }, [selectedCategory, filtersApplied]);
 
-  // Aplicar filtro de preço e ordenação
   useEffect(() => {
     let result = products.filter(
       (p) => p.price >= minPrice && p.price <= maxPrice
@@ -68,10 +67,9 @@ function ShopProductsGrid({
     }
 
     setFiltered(result);
-    setCurrentPage(1); // Reiniciar a página quando os filtros mudam
+    setCurrentPage(1);
   }, [products, minPrice, maxPrice, sortBy, searchQuery, searchApplied]);
 
-  // Atualizar informação de paginação no componente Shop
   useEffect(() => {
     const total = filtered.length;
     const start = (currentPage - 1) * itemsPerPage + 1;

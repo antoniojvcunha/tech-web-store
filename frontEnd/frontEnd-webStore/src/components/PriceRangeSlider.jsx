@@ -2,9 +2,6 @@ function PriceRangeSlider({ minPrice, maxPrice, setMinPrice, setMaxPrice }) {
   const minLimit = 0;
   const maxLimit = 10000;
 
-  // const [minPrice, setMinPrice] = useState(2000);
-  // const [maxPrice, setMaxPrice] = useState(8000);
-
   const handleMinChange = (e) => {
     const value = Number(e.target.value);
     if (value <= maxPrice - 100) setMinPrice(value);
@@ -23,9 +20,7 @@ function PriceRangeSlider({ minPrice, maxPrice, setMinPrice, setMaxPrice }) {
       <div className="w-full max-w-sm mx-auto px-4 py-6">
         <h2 className="text-lg font-bold mb-4">Choose Price &gt;</h2>
 
-        {/* Slider Track */}
         <div className="relative h-2 bg-gray-300 rounded-full">
-          {/* Highlighted Range */}
           <div
             className="absolute h-2 bg-red-500 rounded-full"
             style={{
@@ -34,7 +29,6 @@ function PriceRangeSlider({ minPrice, maxPrice, setMinPrice, setMaxPrice }) {
             }}
           ></div>
 
-          {/* Input sliders */}
           <input
             type="range"
             min={minLimit}
@@ -53,7 +47,6 @@ function PriceRangeSlider({ minPrice, maxPrice, setMinPrice, setMaxPrice }) {
           />
         </div>
 
-        {/* Price Display */}
         <div className="flex justify-between text-sm mt-4">
           <span>${minPrice}</span>
           <span>${maxPrice}</span>

@@ -1,41 +1,43 @@
-// CartButton.jsx
-import React, { useState } from 'react';
-import { useCart } from '../context/cart/useCart';
+import React, { useState } from "react";
+import { useCart } from "../context/cart/useCart";
 
-export const CartButton = ({ 
-  productId, 
-  variant = 'floating', 
-  children 
-}) => {
-  const { addToCart } = useCart();
+export const CartButton = ({ productId, variant = "floating", children }) => {
+  const { addToCart, loading, cartId } = useCart();
   const [isAdding, setIsAdding] = useState(false);
-  const [buttonText, setButtonText] = useState('Add to Cart');
+  const [buttonText, setButtonText] = useState("Add to Cart");
 
   const handleAddToCart = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsAdding(true);
-    setButtonText('Adding...');
-    
+    setButtonText("Adding...");
+
     try {
+      if (loading || !cartId) {
+        console.warn("Cart still loading or cartId missing...");
+        setIsAdding(false);
+        setButtonText("Await...");
+        return;
+      }
       await addToCart(productId, 1);
-      setButtonText('✓ Added!');
+      setButtonText("✓ Added!");
       setTimeout(() => {
-        setButtonText('Add to Cart');
+        setButtonText("Add to Cart");
         setIsAdding(false);
       }, 1000);
     } catch (error) {
-      console.error('Error adding to cart:', error);
-      setButtonText('Add to Cart');
+      console.error("Error adding to cart:", error);
+      setButtonText("Add to Cart");
       setIsAdding(false);
     }
   };
 
   const baseStyles = `
     transition-all duration-300 hover:scale-105
-    ${isAdding ? 'bg-gray-400' : 'bg-red-500 hover:bg-red-600'}
+    ${isAdding ? "bg-gray-400" : "bg-red-500 hover:bg-red-600"}
   `;
 
-  if (variant === 'floating') {
+  if (variant === "floating") {
     return (
       <button
         onClick={handleAddToCart}

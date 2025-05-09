@@ -21,7 +21,6 @@ function AboutUs() {
         </div>
       </div>
       <div className="flex flex-col-reverse gap-10 lg:flex-row items-center justify-center max-w-7xl mx-auto px-4 py-10 lg:gap-25">
-        {/* Texto */}
         <div className="flex flex-col gap-5 lg:w-1/2 text-justify">
           <h3 className="text-lg text-red-600 sm:text-xl lg:text-2xl">
             Welcome to TechLand
@@ -58,7 +57,6 @@ function AboutUs() {
           </Link>
         </div>
 
-        {/* Imagem */}
         <div className="lg:w-1/2 w-full">
           <img
             src="/images/aboutus.jpg"

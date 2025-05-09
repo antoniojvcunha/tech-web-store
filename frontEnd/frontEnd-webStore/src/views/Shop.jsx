@@ -101,7 +101,6 @@ function Shop() {
             </div>
           </div>
 
-          {/* Products */}
           <div className="w-full lg:w-3/4 p-4 space-y-6">
             <div className="flex flex-col md:flex-row justify-between gap-2">
               <div>

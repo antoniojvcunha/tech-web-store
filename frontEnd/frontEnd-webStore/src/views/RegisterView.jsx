@@ -23,7 +23,7 @@ function Register() {
 
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4">
-      <h2 className="text-xl font-semibold mb-4">Registo</h2>
+      <h2 className="text-xl font-semibold mb-4">Register</h2>
       <input
         className="w-full mb-2 p-2 border"
         type="text"

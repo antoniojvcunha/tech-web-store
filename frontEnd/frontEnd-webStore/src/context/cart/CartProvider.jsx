@@ -1,124 +1,80 @@
-// src/context/cart/CartProvider.jsx
-import { useEffect, useState } from "react";
-import {CartContext} from './CartContext';
+import { useEffect, useState, useCallback } from "react";
+import { CartContext } from "./CartContext";
 import cartService from "../../services/cartService";
-import { v4 as uuidv4 } from "uuid";
-
 
 function CartProvider({ userId, children }) {
   const [cartId, setCartId] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const refreshCartItems = useCallback(async (id) => {
+    try {
+      const items = await cartService.getCartItems(id || cartId);
+      setCartItems(items);
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+    }
+  }, [cartId]);
+
   useEffect(() => {
     async function initCart() {
+      if (!userId) return;
+
       setLoading(true);
+
       try {
-        let cart;
-
-        if (userId) {
-            const tempItems = JSON.parse(localStorage.getItem("tempCartItems")) || [];
-            try {
-              cart = await cartService.getCartByUserId(userId);
-            } catch (error) {
-              if (error.message.includes("Cart not found")) {
-                const newCart = await cartService.createCart(userId);
-                cart = { id: newCart.insertId };
-              } else {
-                throw error;
-              }
-            }
-            
-          setCartId(cart.id);
-
-          for (const item of tempItems) {
-            await cartService.addItemToCart(cart.id, item.product_id, item.quantity);
-          }
-
-          localStorage.removeItem("tempCartItems");
-          localStorage.removeItem("tempCartId");
-
-          const items = await cartService.getCartItems(cart.id);
-          setCartItems(items);
-
-        } else {
-          let tempId = localStorage.getItem("tempCartId");
-          if (!tempId) {
-            tempId = uuidv4();
-            localStorage.setItem("tempCartId", tempId);
-          }
-          cart = { id: tempId };
-        
-          const localItems = JSON.parse(localStorage.getItem("tempCartItems")) || [];
-          setCartItems(localItems);
+        let cart = await cartService.getCartByUserId(userId);
+        if (!cart) {
+          const newCart = await cartService.createCart(userId);
+          cart = { id: newCart.cartId };
         }
+        setCartId(cart.id);
+
+        await refreshCartItems(cart.id);
       } catch (err) {
-        console.error("Erro ao inicializar carrinho:", err);
+        console.error("Error initializing cart:", err);
       } finally {
         setLoading(false);
       }
     }
 
     initCart();
-  }, [userId]);
+  }, [userId, refreshCartItems]);
 
   const addToCart = async (productId, quantity = 1) => {
-    if (!cartId) return;
-  
+    if (!cartId || loading) return;
     try {
-      if (userId) {
-        await cartService.addItemToCart(cartId, productId, quantity);
-        const items = await cartService.getCartItems(cartId);
-        setCartItems(items);
-      } else {
-        const localItems = [...cartItems];
-        const existingItem = localItems.find(item => item.product_id === productId);
-  
-        if (existingItem) {
-          existingItem.quantity += quantity;
-        } else {
-            localItems.push({ 
-                product_id: productId, 
-                quantity,
-                name: `Produto #${productId}`,
-                price: 0,
-                image_url: null
-              });
-        }
-  
-        localStorage.setItem("tempCartItems", JSON.stringify(localItems));
-        setCartItems(localItems);
-      }
+      await cartService.addItemToCart(cartId, productId, quantity);
+      await refreshCartItems();
     } catch (error) {
-      console.error("Error adding to cart:", error);
-      throw error; // Rejeita a promise para tratamento no componente
+      console.error("Error adding item to cart:", error);
     }
   };
 
   const updateQuantity = async (itemId, quantity) => {
-    if (userId) {
+    try {
       await cartService.updateCartItemQuantity(itemId, quantity);
-      const items = await cartService.getCartItems(cartId);
-      setCartItems(items);
-    } else {
-      const localItems = [...cartItems];
-      const updated = localItems.map(item =>
-        item.product_id === itemId ? { ...item, quantity } : item
-      );
-      localStorage.setItem("tempCartItems", JSON.stringify(updated));
-      setCartItems(updated);
+      await refreshCartItems();
+    } catch (error) {
+      console.error("Error updating item quantity:", error);
     }
   };
 
   const removeFromCart = async (itemId) => {
-    if (userId) {
+    try {
       await cartService.removeCartItem(itemId);
-      const items = await cartService.getCartItems(cartId);
-      setCartItems(items);
-    } else {
-      const updated = cartItems.filter(item => item.product_id !== itemId);
-      localStorage.setItem("tempCartItems", JSON.stringify(updated));
-      setCartItems(updated);
+      await refreshCartItems();
+    } catch (error) {
+      console.error("Error removing item from cart:", error);
+    }
+  };
+
+  const clearCart = async () => {
+    try {
+      await cartService.clearCart(cartId);
+      setCartItems([]);
+    } catch (error) {
+      console.error("Error clearing cart:", error);
     }
   };
 
@@ -131,6 +87,7 @@ function CartProvider({ userId, children }) {
         addToCart,
         updateQuantity,
         removeFromCart,
+        clearCart,
       }}
     >
       {children}
