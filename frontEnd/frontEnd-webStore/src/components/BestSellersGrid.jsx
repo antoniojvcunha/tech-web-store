@@ -22,11 +22,11 @@ function BestSellersGrid() {
   }, []);
 
   if (loading) {
-    return <div className="text-center py-10">A carregar produtos...</div>;
+    return <div className="text-center py-10">Loading best sellers...</div>;
   }
 
   if (bestSellers.length === 0) {
-    return <div className="text-center py-10">Nenhum produto disponível.</div>;
+    return <div className="text-center py-10">No best sellers found</div>;
   }
 
   return (

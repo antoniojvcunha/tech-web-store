@@ -28,7 +28,20 @@ async function getCartByUserId(req, res) {
     }
 }
 
+async function clearCart(req, res) {
+    const cartId = +req.params.cartId;
+    try {
+        const cart = await cartService.clearCart(cartId);
+        res.status(200).json({ message: "Cart cleared successfully", cart });
+    } catch (error) {
+        console.error("Error clearing cart:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+    
+}
+
 module.exports = {
     createCart,
     getCartByUserId,
+    clearCart
 };

@@ -7,6 +7,7 @@ const cartRoutes = require("./router/cartRoutes");
 const cartItemRoutes = require("./router/cartItemRoutes");
 const noveltieRoutes = require("./router/noveltieRoutes");
 const contactUsRoutes = require("./router/contactUsRoutes");
+const checkoutRoutes = require("./router/checkoutRoutes");
 
 const app = express();
 
@@ -18,8 +19,16 @@ const port = 3000;
 
 app.use(express.json());
 
-app.use(productRoutes, userRoutes, orderRoutes, orderItemRoutes, cartRoutes, cartItemRoutes, noveltieRoutes, contactUsRoutes);
+app.use("/api", productRoutes);
+app.use("/api", userRoutes);
+app.use("/api", orderRoutes);
+app.use("/api", orderItemRoutes);
+app.use("/api", cartRoutes);
+app.use("/api", cartItemRoutes);
+app.use("/api", noveltieRoutes);
+app.use("/api", contactUsRoutes);
+app.use("/api", checkoutRoutes); 
 
 app.listen(port, function() {
     console.log(`Server started on port ${port}`);
-})
+});

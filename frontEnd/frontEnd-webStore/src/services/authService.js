@@ -8,7 +8,7 @@ export async function registerUser({ name, email, password }) {
   });
 
   const data = await res.json();
-  if (!res.ok) throw new Error(data.message || "Erro ao registar");
+  if (!res.ok) throw new Error(data.message || "Error registering user");
 
   return data;
 }
@@ -21,7 +21,8 @@ export async function loginUser({ email, password }) {
   });
 
   const data = await res.json();
-  if (!res.ok) throw new Error(data.message || "Erro ao fazer login");
+  if (!res.ok) throw new Error(data.message || "Error logging in");
 
   return data;
 }
+

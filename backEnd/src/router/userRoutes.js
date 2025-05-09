@@ -3,7 +3,7 @@ const userController = require("../controllers/userController");
 const { validateRegister, validateLogin } = require("../middlewares/authValidation");
 
 
-router.post("/api/users/register", validateRegister , userController.registerUser);
-router.post("/api/users/login", validateLogin , userController.login);  
+router.post("/users/register", validateRegister , userController.registerUser);
+router.post("/users/login", validateLogin , userController.login);  
 
 module.exports = router;

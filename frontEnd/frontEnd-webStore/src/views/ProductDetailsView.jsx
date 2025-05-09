@@ -21,7 +21,7 @@ function ProductDetailsView() {
         );
         setProduct(matchedProduct);
       } catch (error) {
-        console.error("Erro ao buscar produtos:", error);
+        console.error("Error fetching products:", error);
       } finally {
         setLoading(false);
       }
@@ -30,9 +30,9 @@ function ProductDetailsView() {
     fetchProducts();
   }, [slug]);
 
-  if (loading) return <div className="text-center py-10">A carregar...</div>;
+  if (loading) return <div className="text-center py-10">loading</div>;
   if (!product)
-    return <div className="text-center py-10">Produto não encontrado.</div>;
+    return <div className="text-center py-10">Produtc not found</div>;
 
   return (
     <>

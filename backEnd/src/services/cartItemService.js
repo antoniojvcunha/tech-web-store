@@ -1,6 +1,8 @@
 const db = require("../db/connection_db");
 
 async function addItemToCart(cartId, productId, quantity) {
+    console.log("INSERT ITEM:", { cartId, productId, quantity });
+
     const [result] = await db.query(
         "SELECT * FROM cart_items WHERE cart_id = ? AND product_id = ?",
         [cartId, productId]
@@ -27,7 +29,7 @@ async function addItemToCart(cartId, productId, quantity) {
 
 async function getItemsByCartId(cartId) {
     const [result] = await db.query(
-        `SELECT ci.id, ci.product_id, p.name, p.price, ci.quantity 
+        `SELECT ci.id AS cart_item_id, ci.product_id, p.name, p.price, ci.quantity, p.image_url 
          FROM cart_items ci
          JOIN products p ON ci.product_id = p.id
          WHERE ci.cart_id = ?`,
